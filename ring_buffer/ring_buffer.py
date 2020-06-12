@@ -34,4 +34,33 @@ class RingBuffer:
                 self.current = self.storage.tail
 
     def get(self):
-        pass
+        # create a list to store the items
+        rblist = []
+        # if the DLL is empty
+        if not self.storage.length:
+            # return none
+            return None
+        # store the current item
+        starter = self.current
+        # add the current item to the list
+        rblist.append(starter.value)
+        # if there is a next node
+        if starter.next:
+            # then go to the next node
+            s_next = starter.next
+        # or start start at the head
+        else:
+            s_next = self.storage.head
+        # as long as the item isnt the same as teh starting item
+        while s_next is not starter:
+            # add the item to the rblist
+            rblist.append(s_next.value)
+            # if there is a next value
+            if s_next.next:
+                # continue next
+                s_next = s_next.next
+            else:
+                # go back to the next head
+                s_next = self.storage.head
+        # return the list
+        return rblist
